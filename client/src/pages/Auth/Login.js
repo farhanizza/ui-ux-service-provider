@@ -4,8 +4,14 @@ import Button from '../../Components/Auth/Button';
 import Username from '../../Components/Auth/Username';
 import Password from '../../Components/Auth/Password';
 import CreatedAccount from '../../Components/Auth/CreatedAccount';
+import { useNavigate } from 'react-router-dom';
 
 export default function Login() {
+	const navigate = useNavigate();
+
+	const handleLogin = () => {
+		navigate('/home');
+	};
 	return (
 		<>
 			<div className="flex justify-between">
@@ -28,7 +34,7 @@ export default function Login() {
 								<Password label={'Password'} />
 							</div>
 							<div className="flex flex-col mt-[20px]">
-								<Button name={'Log In'} />
+								<Button name={'Log In'} action={handleLogin} />
 							</div>
 							<CreatedAccount
 								label={'Don’t you have an account?'}

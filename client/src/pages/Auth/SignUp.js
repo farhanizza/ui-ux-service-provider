@@ -6,6 +6,9 @@ import Password from '../../Components/Auth/Password';
 import CreatedAccount from '../../Components/Auth/CreatedAccount';
 
 export default function SignUp() {
+	const handleSignUp = () => {
+		console.log('Cek');
+	};
 	return (
 		<>
 			<div className="flex justify-between">
@@ -31,7 +34,7 @@ export default function SignUp() {
 								<Password label={'Password'} />
 							</div>
 							<div className="flex flex-col mt-[20px]">
-								<Button name={'Sign Up'} />
+								<Button name={'Sign Up'} action={handleSignUp} />
 							</div>
 							<CreatedAccount
 								label={'Already have an account?'}
