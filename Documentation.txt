@@ -1,0 +1,3 @@
+set up project: https://chatgpt.com/share/6710795f-2794-8007-be65-d97e4c243f55
+
+remove git init: https://stackoverflow.com/questions/3212459/is-there-a-command-to-undo-git-init

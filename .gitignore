@@ -1,0 +1,13 @@
+# Node.js dependencies
+client/node_modules/
+server/node_modules/
+
+# Environment files
+client/.env
+server/.env
+
+# Log files
+*.log
+
+# OS-specific files
+.DS_Store
