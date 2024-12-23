@@ -5,6 +5,7 @@ import SignUp from './pages/Auth/SignUp';
 import Home from './pages/Home/Home';
 import Products from './pages/Home/Products';
 import Profile from './pages/Home/Profile';
+import ManageProductTemplate from './pages/Home/Admin/ManageProductTemplate';
 
 export default function App() {
 	return (
@@ -15,6 +16,7 @@ export default function App() {
 				<Route path="/sign_up" element={<SignUp />} />
 				<Route path="/home" element={<Home />} />
 				<Route path="/home/:id" element={<Products />} />
+				<Route path="/manage-template" element={<ManageProductTemplate />} />
 			</Routes>
 		</BrowserRouter>
 	);

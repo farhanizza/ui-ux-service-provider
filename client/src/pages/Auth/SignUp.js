@@ -1,13 +1,34 @@
-import React from 'react';
+import React, { useState } from 'react';
 import LoginImage from '../../assets/image/LoginImage.png';
 import Button from '../../Components/Auth/Button';
 import Username from '../../Components/Auth/Username';
 import Password from '../../Components/Auth/Password';
 import CreatedAccount from '../../Components/Auth/CreatedAccount';
+import axios from 'axios';
 
 export default function SignUp() {
+	const [username, setUsername] = useState('');
+	const [password, setPassword] = useState('');
+	const [email, setemail] = useState('');
+
 	const handleSignUp = () => {
-		console.log('Cek');
+		axios
+			.post('http://localhost:5000/api/signup', {
+				username,
+				password,
+				email,
+			})
+			.then((response) => {
+				if (response.status === 201) {
+					console.log('Success', response.data);
+				}
+			})
+			.catch((error) => {
+				console.error(
+					'Error:',
+					error.response ? error.response.data : error.message
+				);
+			});
 	};
 	return (
 		<>
@@ -25,13 +46,13 @@ export default function SignUp() {
 						</p>
 						<div className="mt-[35px]">
 							<div className="flex flex-col">
-								<Username label={'Username'} />
+								<Username label={'Username'} setUsername={setUsername} />
 							</div>
 							<div className="flex flex-col mt-[20px]">
-								<Username label={'Email'} />
+								<Username label={'Email'} setUsername={setemail} />
 							</div>
 							<div className="flex flex-col mt-[20px]">
-								<Password label={'Password'} />
+								<Password label={'Password'} setPassword={setPassword} />
 							</div>
 							<div className="flex flex-col mt-[20px]">
 								<Button name={'Sign Up'} action={handleSignUp} />
