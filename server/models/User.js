@@ -17,6 +17,10 @@ const userSchema = new mongoose.Schema({
 		unique: true,
 		match: [/.+@.+\..+/, 'Invalid email format'],
 	},
+	role: {
+		type: String,
+		required: true,
+	},
 	createdAt: {
 		type: Date,
 		default: Date.now,

@@ -1,11 +1,15 @@
-import React, { useState } from 'react';
+import React from 'react';
 import IconSearch from '../Icon/IconSearch';
 import IconRestart from '../Icon/IconRestart';
 import IconFilter from '../Icon/IconFilter';
 import IconAddProduct from '../Icon/IconAddProduct';
 import { Link } from 'react-router-dom';
 
-export default function DesignSearchInterface({ setIsCreate }) {
+export default function DesignSearchInterface({
+	setIsCreate,
+	userRole,
+	userId,
+}) {
 	return (
 		<div className="flex mt-[23px]">
 			<input
@@ -25,14 +29,16 @@ export default function DesignSearchInterface({ setIsCreate }) {
 				<div className="w-[30px] h-[30px] rounded-full bg-[#EDDCFC] flex justify-center items-center cursor-pointer">
 					<IconFilter />
 				</div>
-				<Link to={'/manage-template'}>
-					<div
-						className="w-[30px] h-[30px] rounded-full bg-[#EDDCFC] flex justify-center items-center cursor-pointer"
-						onClick={() => setIsCreate(true)}
-					>
-						<IconAddProduct />
-					</div>
-				</Link>
+				{userRole === 'admin' ? (
+					<Link to={`/manage-template/${userId}`}>
+						<div
+							className="w-[30px] h-[30px] rounded-full bg-[#EDDCFC] flex justify-center items-center cursor-pointer"
+							onClick={() => setIsCreate(true)}
+						>
+							<IconAddProduct />
+						</div>
+					</Link>
+				) : null}
 			</div>
 		</div>
 	);

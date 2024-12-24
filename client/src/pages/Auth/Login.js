@@ -6,21 +6,30 @@ import Password from '../../Components/Auth/Password';
 import CreatedAccount from '../../Components/Auth/CreatedAccount';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import Cookies from 'js-cookie';
+import Home from '../Home/Home';
 
 export default function Login() {
 	const navigate = useNavigate();
 	const [username, setUsername] = useState('');
 	const [password, setPassword] = useState('');
 
-	const handleLogin = () => {
-		axios
+	const handleLogin = async () => {
+		await axios
 			.post('http://localhost:5000/api/signin', {
 				username,
 				password,
 			})
-			.then((response) => {
+			.then(async (response) => {
 				if (response.data.message === 'Signin successful') {
-					navigate('/home');
+					const response = await axios.get(
+						'http://localhost:5000/api/getAllUser'
+					);
+					const userId = response.data.find(
+						(user) => user.username === username
+					);
+					navigate(`/home/${userId._id}`);
+					Cookies.set('username', username);
 				}
 			})
 			.catch((error) => {
@@ -44,10 +53,7 @@ export default function Login() {
 						</p>
 						<div className="mt-[35px]">
 							<div className="flex flex-col">
-								<Username
-									label={'Username or Email'}
-									setUsername={setUsername}
-								/>
+								<Username label={'Username'} setUsername={setUsername} />
 							</div>
 							<div className="flex flex-col mt-[20px]">
 								<Password label={'Password'} setPassword={setPassword} />

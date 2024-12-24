@@ -4,8 +4,13 @@ import IconProfile from '../../Components/Icon/IconProfile';
 import IconLogout from '../../Components/Icon/IconLogout';
 import LoginImage from '../../assets/image/LoginImage.png';
 import { Link } from 'react-router-dom';
+import Cookies from 'js-cookie';
 
-export default function Navbar({ name }) {
+export default function Navbar({ name, userId }) {
+	const handleLogout = () => {
+		Cookies.remove('username');
+	};
+
 	return (
 		<div className="flex">
 			<div className="w-full bg-[#EDDCFC] py-[20px] px-[34px] flex justify-between">
@@ -19,20 +24,23 @@ export default function Navbar({ name }) {
 					</div>
 				</div>
 				<div className="flex space-x-[76px]">
-					<Link to={'/home'}>
+					<Link to={`/home/${userId}`}>
 						<div className="flex flex-col justify-center items-center">
 							<IconHome />
 							<p className="font-medium text-[14px] text-[#34364A]">Home</p>
 						</div>
 					</Link>
-					<Link to={'/profile'}>
+					<Link to={`/profile/${userId}`}>
 						<div className="flex flex-col justify-center items-center">
 							<IconProfile />
 							<p className="font-medium text-[14px] text-[#34364A]">Profile</p>
 						</div>
 					</Link>
 					<Link to={'/logout'}>
-						<div className="flex flex-col justify-center items-center">
+						<div
+							className="flex flex-col justify-center items-center"
+							onClick={() => handleLogout()}
+						>
 							<IconLogout />
 							<p className="font-medium text-[14px] text-[#34364A]">Logout</p>
 						</div>

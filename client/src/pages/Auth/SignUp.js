@@ -5,11 +5,13 @@ import Username from '../../Components/Auth/Username';
 import Password from '../../Components/Auth/Password';
 import CreatedAccount from '../../Components/Auth/CreatedAccount';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 export default function SignUp() {
 	const [username, setUsername] = useState('');
 	const [password, setPassword] = useState('');
 	const [email, setemail] = useState('');
+	const navigate = useNavigate();
 
 	const handleSignUp = () => {
 		axios
@@ -20,7 +22,7 @@ export default function SignUp() {
 			})
 			.then((response) => {
 				if (response.status === 201) {
-					console.log('Success', response.data);
+					navigate('/');
 				}
 			})
 			.catch((error) => {

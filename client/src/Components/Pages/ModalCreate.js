@@ -1,9 +1,31 @@
-import React from 'react';
+import React, { useState } from 'react';
 import figma from '../../assets/image/figma.png';
 import Button from '../../Components/Auth/Button';
+import axios from 'axios';
 
 export default function ModalCreate({ isOpen, onClose }) {
+	const [templateName, setTemplateName] = useState('');
+	const [description, setDescription] = useState('');
+	const [linkDesign, setLinkDesign] = useState('');
+
 	if (!isOpen) return null;
+
+	const handleCreate = async () => {
+		await axios
+			.post(`http://localhost:5000/api/addProduct`, {
+				templateName,
+				description,
+				linkDesign,
+			})
+			.then(async (response) => {
+				if (response.data.message === 'Product added successfully') {
+					alert(response.data.message);
+				}
+			})
+			.catch((error) => {
+				alert(error.response.data.message);
+			});
+	};
 
 	return (
 		<>
@@ -29,6 +51,7 @@ export default function ModalCreate({ isOpen, onClose }) {
 							type="text"
 							name="template"
 							id="template"
+							onChange={(e) => setTemplateName(e.target.value)}
 							className="border-[3px] border-[#EDDCFC] rounded-[12px] w-[409px] h-[45px] mt-[13px] pl-[10px]"
 						/>
 					</div>
@@ -43,6 +66,7 @@ export default function ModalCreate({ isOpen, onClose }) {
 							type="text"
 							name="description"
 							id="description"
+							onChange={(e) => setDescription(e.target.value)}
 							className="border-[3px] border-[#EDDCFC] rounded-[12px] w-[409px] h-[45px] mt-[13px] pl-[10px]"
 						></textarea>
 					</div>
@@ -57,6 +81,7 @@ export default function ModalCreate({ isOpen, onClose }) {
 							type="text"
 							name="linkDesign"
 							id="linkDesign"
+							onChange={(e) => setLinkDesign(e.target.value)}
 							className="border-[3px] border-[#EDDCFC] rounded-[12px] w-[409px] h-[45px] mt-[13px] pl-[10px]"
 						/>
 					</div>
@@ -87,7 +112,7 @@ export default function ModalCreate({ isOpen, onClose }) {
 						</div>
 					</div>
 					<div className="mt-[32px]">
-						<Button name={'Create template'} />
+						<Button name={'Create template'} action={handleCreate} />
 					</div>
 				</div>
 			</div>
